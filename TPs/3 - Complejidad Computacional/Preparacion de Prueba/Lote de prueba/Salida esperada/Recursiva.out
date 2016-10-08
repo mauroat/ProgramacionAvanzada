@@ -1,0 +1,61 @@
+Programacion Recursiva:
+Resultado: 4.2836199424
+Tiempo: 0.0
+
+5
+Resultado: 5.201869415300988
+Tiempo: 0.0
+
+10
+Resultado: 7.4854869698261615
+Tiempo: 0.0
+
+50
+Resultado: 5.229293770120807
+Tiempo: 0.0
+
+100
+Resultado: 4.080970872822016
+Tiempo: 2.0
+
+500
+Resultado: 7.838960043302327
+Tiempo: 6.0
+
+1000
+Resultado: 5.45470696028496
+Tiempo: 22.0
+
+2000
+Resultado: 7.964991587133586
+Tiempo: 30.0
+
+3000
+Resultado: 5.5586272804583965
+Tiempo: 50.0
+
+4000
+Resultado: 4.898145425621789
+Tiempo: 118.0
+
+5000
+Resultado: 6.89636838979432
+Tiempo: 251.0
+
+6000
+Resultado: 3.963658060318576
+Tiempo: 456.0
+
+7000
+Resultado: 5.1114872088246806
+Tiempo: 709.0
+
+8000
+Resultado: 7.2490510159858
+Tiempo: 927.0
+
+9000
+Resultado: 8.16998109590007
+Tiempo: 1182.0
+
+10000

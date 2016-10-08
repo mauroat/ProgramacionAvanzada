@@ -1,0 +1,4 @@
+- DOCU COMPLETA
+	- Complejidad computacional
+- METRICAS
+	- HECHAS
