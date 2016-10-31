@@ -2,13 +2,13 @@ package grafos;
 
 import java.util.Random;
 
-public class GenAlNProbAdyacencia {
+public class GrafoDadoNProbAdyacencia {
 	private int cantAristas;
 	private int cantNodos;
 	private int porcAdyacencia;
 	private MatrizSimetrica matriz;
 	
-	public GenAlNProbAdyacencia(int cantNodos, int porcAdyacencia)
+	public GrafoDadoNProbAdyacencia(int cantNodos, int porcAdyacencia)
 	{
 		this.cantNodos = cantNodos;
 		matriz = new MatrizSimetrica(cantNodos);
@@ -16,7 +16,7 @@ public class GenAlNProbAdyacencia {
 		this.cantAristas = (porcAdyacencia / 100) * ((this.cantNodos * (this.cantNodos - 1)) / 2);
 	}
 	
-	public void GrafoAlNProbAdyacencia() {
+	public void GrafoAleatorio() {
 		Random r = new Random(2);
 		int aristas = 0;
 		
