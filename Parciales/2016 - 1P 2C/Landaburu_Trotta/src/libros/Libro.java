@@ -32,12 +32,11 @@ public class Libro {
 	public void resolver(){
 		int aux=0 , min=999999,  pos=-1;
 		// Por cada elemento del array, tomo el de la posicion i...
-		if(this.cantidadLibros==1)
+		if(this.cantidadLibros == 1)
 			this.resultado =  1;
-		else if (this.cantidadLibros==2){
+		else if (this.cantidadLibros == 2){
 			this.resultado =  mayor(0,1);
 		} else {
-		
 		
 			for(int i = 0; i<this.cantidadLibros;i++){
 				aux=0;
@@ -50,12 +49,16 @@ public class Libro {
 					}
 					// 
 					if(j < this.cantidadLibros - 1 && (j + 1) != i){
+						
 						aux += Math.abs(alturas[j]-alturas[j+1]);
+						
 					} else if (j + 1 < this.cantidadLibros - 1 && (j + 1) == i){
+						
 						aux += Math.abs(alturas[j]-alturas[j+2]);
 					}
 						
 				}
+				
 				if(aux <= min){
 					min= aux;
 					pos = i;
@@ -64,6 +67,7 @@ public class Libro {
 			this.resultado =  pos+1;
 		}
 	}
+	
 	/*public int resolver(){
 		if(this.cantidadLibros==1)
 			return 1;
