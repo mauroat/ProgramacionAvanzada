@@ -46,7 +46,7 @@ public class RecursivaParTest {
 		// Polinomio 5
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p5.evaluarRecursiva(1);
+		res = p5.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -60,7 +60,7 @@ public class RecursivaParTest {
 		// Polinomio 10
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p10.evaluarRecursiva(1);
+		res = p10.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -75,7 +75,7 @@ public class RecursivaParTest {
 		// Polinomio 50
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p50.evaluarRecursiva(1);
+		res = p50.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -89,7 +89,7 @@ public class RecursivaParTest {
 		// Polinomio 100
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p100.evaluarRecursiva(1);
+		res = p100.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -104,7 +104,7 @@ public class RecursivaParTest {
 		// Polinomio 500
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p500.evaluarRecursiva(1);
+		res = p500.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -118,7 +118,7 @@ public class RecursivaParTest {
 		// Polinomio 1000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p1000.evaluarRecursiva(1);
+		res = p1000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -132,7 +132,7 @@ public class RecursivaParTest {
 		// Polinomio 2000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p2000.evaluarRecursiva(1);
+		res = p2000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -146,7 +146,7 @@ public class RecursivaParTest {
 		// Polinomio 3000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p3000.evaluarRecursiva(1);
+		res = p3000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -160,7 +160,7 @@ public class RecursivaParTest {
 		// Polinomio 4000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p4000.evaluarRecursiva(1);
+		res = p4000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -174,7 +174,7 @@ public class RecursivaParTest {
 		// Polinomio 5000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p5000.evaluarRecursiva(1);
+		res = p5000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -188,7 +188,7 @@ public class RecursivaParTest {
 		// Polinomio 6000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p6000.evaluarRecursiva(1);
+		res = p6000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -202,7 +202,7 @@ public class RecursivaParTest {
 		// Polinomio 7000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p7000.evaluarRecursiva(1);
+		res = p7000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -216,7 +216,7 @@ public class RecursivaParTest {
 		// Polinomio 8000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p8000.evaluarRecursiva(1);
+		res = p8000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -230,7 +230,7 @@ public class RecursivaParTest {
 		// Polinomio 9000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p9000.evaluarRecursiva(1);
+		res = p9000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			
@@ -244,7 +244,7 @@ public class RecursivaParTest {
 		// Polinomio 10000
 		// Inicio la toma de datos
 		tIni = new GregorianCalendar();		
-		res = p10000.evaluarRecursiva(1);
+		res = p10000.evaluarRecursivaPar(1);
 		tFin = new GregorianCalendar();
 		System.out.println("Resultado: "+res);
 		salida.println("Resultado: "+res);			

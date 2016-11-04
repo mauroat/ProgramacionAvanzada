@@ -43,6 +43,16 @@ public class Polinomio
 			return x * potencia (x, n-1);
 	}
 	
+	private double potenciaConParidad(double x, int n)
+	{
+		if (n == 0)
+			return 1;
+		else if (n % 2 == 0)
+			return potenciaConParidad(x * x, n / 2);
+		else
+			return x * potenciaConParidad(x, n - 1);
+	}
+	
 	// Métodos Públicos
 	/**
 	 * Complejidad computacional: ¿n*(n-1)?
@@ -93,14 +103,11 @@ public class Polinomio
 	public double evaluarRecursivaPar (double x)
 	{
 		double resultado = 0;
-		for (int i = this.grado; i > -1; i--){
-			if(i%2 == 0){
-				resultado += potencia(x*x, i/2) * this.coeficientes[this.grado - i];
-			} else {
-				resultado += x*potencia(x, i-1) * this.coeficientes[this.grado - i];
-			}	
-		}
-		return resultado;	
+		
+		for (int i = this.grado; i > -1; i--)
+			resultado += potenciaConParidad(x, i) * this.coeficientes[this.grado - i];
+		
+		return resultado;
 	}
 	
 	public double evaluarProgDinamica(double x ){
