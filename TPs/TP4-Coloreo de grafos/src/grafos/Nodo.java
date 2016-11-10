@@ -1,6 +1,6 @@
 package grafos;
 
-public class Nodo {
+public class Nodo implements Comparable <Nodo> {
 	private int indice;
 	private int color;
 	private int grado;
@@ -37,4 +37,17 @@ public class Nodo {
 		this.grado++;
 	}
 	
+	/*
+	 * Se sobreescribe este metodo para que funcione el metodo sort en la lista enlazada de nodos
+	 * */
+	@Override
+    public int compareTo(Nodo n) {
+        if (grado < n.grado) {
+            return -1;
+        }
+        if (grado > n.grado) {
+            return 1;
+        }
+        return 0;
+    }
 }

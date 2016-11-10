@@ -1,5 +1,7 @@
 package grafos;
 
+
+
 public class MatrizSimetrica {
 
 	private int cantNodos;
@@ -15,8 +17,7 @@ public class MatrizSimetrica {
 		}
 	}
 	
-	private int encontrarPosicion(int origen, int destino) {
-		
+	private int encontrarPosicion(int origen, int destino) {		
 		if (origen > destino) {
 			int aux = origen;
 			origen = destino;
@@ -37,5 +38,14 @@ public class MatrizSimetrica {
 			int pos = encontrarPosicion(origen, destino);
 			vector[pos] = true;
 		}
+	}
+	
+	public void mostrarMatriz(){
+		for(int i = 0; i<vector.length;i++)
+			System.out.print(vector[i]+" ");
+	}
+	
+	public boolean sonAdyacentes(int nodoOrigen, int nodoDestino) {
+		return this.vector[this.encontrarPosicion(nodoOrigen, nodoDestino)];
 	}
 }
