@@ -1,0 +1,3 @@
+Algoritmo: Secuencial Aleatorio
+Menor cantidad de colores: 4
+Nro de corrida: 0
