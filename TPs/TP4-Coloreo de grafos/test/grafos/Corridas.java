@@ -7,64 +7,69 @@ import java.io.PrintWriter;
 import org.junit.Test;
 
 public class Corridas {
-	final static int CANTIDAD_CORRIDAS = 10000;
-	final static int CANTIDAD_NODOS = 12;
-	final static int PORCENTAJE_ADYACENCIA = 60;
+	private int CANTIDAD_CORRIDAS;
+	private int CANTIDAD_NODOS = 50;
+	private int PORCENTAJE_ADYACENCIA;
 
-	private static int[] estadisticasSA = new int[CANTIDAD_CORRIDAS];
-	private static int[] estadisticasWP = new int[CANTIDAD_CORRIDAS];
-	private static int[] estadisticasMAT = new int[CANTIDAD_CORRIDAS];
+	private int[] estadisticas ;//= new int[CANTIDAD_NODOS];
+//	private static int[] estadisticasWP = new int[CANTIDAD_NODOS-1];
+//	private static int[] estadisticasMAT = new int[CANTIDAD_NODOS-1];
 	
-	private int mejorCorrida = 0;
-	private int mejorColores = 0;
+	//private int mejorCorrida = 0;
+	//private int mejorColores = 0;
 	
 	
-	//@Test
-	public void ejecucionN5PAdy40() throws FileNotFoundException{
+	@Test
+	public void ejecucionN5PAdy60() throws FileNotFoundException{
+		
+		this.PORCENTAJE_ADYACENCIA = 60;
+		this.CANTIDAD_CORRIDAS = 10000;
+		this.CANTIDAD_NODOS = 5;
+		this.estadisticas = new int[CANTIDAD_NODOS];
+		
+		inicializarVector(estadisticas);
+		
+		GrafoNDNP gn = new GrafoNDNP("test/Entrada/GA_"+CANTIDAD_NODOS+"_PA"+PORCENTAJE_ADYACENCIA+".in");
 		
 		for(int i = 0; i < CANTIDAD_CORRIDAS ;i++){
-			GrafoNDNP gn = new GrafoNDNP("test/Entrada/GA_N5_PA90.in");
+			
 			
 			gn.secuencialAleatorio();
-			//gn.exportarResultado("test/Salida/Resultado1.out");
-			this.estadisticasSA[i] = gn.getCantColores();
-			
+			this.estadisticas[gn.getCantColores()]++;
+			gn.mezclar();
 			gn.matula();
-			//gn.exportarResultado("Resultado2.out");
-			this.estadisticasMAT[i] = gn.getCantColores();
-			
+			this.estadisticas[gn.getCantColores()]++;
+			gn.mezclar();
 			gn.welshPowell();
-			//gn.exportarResultado("Resultado3.out");
-			this.estadisticasWP[i] = gn.getCantColores();
+			this.estadisticas[gn.getCantColores()]++;			
+			gn.mezclar();
 		}
+
+		generarResultado("test/Estadisticas/GA_"+CANTIDAD_NODOS+"_PA"+PORCENTAJE_ADYACENCIA+".txt");
 		
-		int[] valoresSA = calcularMenores(estadisticasSA);
-		int[] valoresMAT = calcularMenores(estadisticasMAT);
-		int[] valoresWP = calcularMenores(estadisticasWP);
-		
-		generarResultado("test/Estadisticas/SecAl_N5_PAdy90.txt","Secuencial Aleatorio",valoresSA);
-		generarResultado("test/Estadisticas/Matula_N5_PAdy90.txt","Matula",valoresMAT);
-		generarResultado("test/Estadisticas/WP_N5_PAdy90.txt","Welsh Powell",valoresWP);
 		
 	}
 	
-	@Test
+	private void inicializarVector(int[] vector) {
+		for(int i = 0; i < CANTIDAD_NODOS ; i++)
+			vector[i] = 0;
+	}
+
+	//@Test
 	public void ejecucionPAdy40() throws FileNotFoundException{
+		GrafoNDNP gn = new GrafoNDNP("test/Entrada/GA_N600_PA40.in");
+	
 		
 		for(int i = 0; i < CANTIDAD_CORRIDAS ;i++){
-			GrafoNDNP gn = new GrafoNDNP("test/Entrada/GA_N600_PA40.in");
 			
 			gn.secuencialAleatorio();
-			//gn.exportarResultado("test/Salida/Resultado1.out");
-			this.estadisticasSA[i] = gn.getCantColores();
-			
+			this.estadisticas[i] = gn.getCantColores();
 			gn.matula();
-			//gn.exportarResultado("Resultado2.out");
-			this.estadisticasMAT[i] = gn.getCantColores();
-			
+			this.estadisticas[i] = gn.getCantColores();
 			gn.welshPowell();
-			//gn.exportarResultado("Resultado3.out");
-			this.estadisticasWP[i] = gn.getCantColores();
+			this.estadisticas[i] = gn.getCantColores();
+			
+			gn.mezclar();	
 		}
 		
 	/*	int[] valoresSA = calcularMenores(estadisticasSA);
@@ -86,24 +91,24 @@ public class Corridas {
 			
 			gn.secuencialAleatorio();
 			//gn.exportarResultado("Resultado1.out");
-			this.estadisticasSA[i] = gn.getCantColores();
+			this.estadisticas[i] = gn.getCantColores();
 			
 			gn.matula();
 			//gn.exportarResultado("Resultado2.out");
-			this.estadisticasMAT[i] = gn.getCantColores();
+			this.estadisticas[i] = gn.getCantColores();
 			
 			gn.welshPowell();
 			//gn.exportarResultado("Resultado3.out");
-			this.estadisticasWP[i] = gn.getCantColores();
+			this.estadisticas[i] = gn.getCantColores();
 		}
 		
-		int[] valoresSA = calcularMenores(estadisticasSA);
-		int[] valoresMAT = calcularMenores(estadisticasMAT);
-		int[] valoresWP = calcularMenores(estadisticasWP);
+		int[] valoresSA = calcularMenores(estadisticas);
+		int[] valoresMAT = calcularMenores(estadisticas);
+		int[] valoresWP = calcularMenores(estadisticas);
 		
-		generarResultado("test/Estadisticas/SecAl_N600_PAdy60.txt","Secuencial Aleatorio",valoresSA);
-		generarResultado("test/Estadisticas/Matula_N600_PAdy60.txt","Matula",valoresMAT);
-		generarResultado("test/Estadisticas/WP_N600_PAdy60.txt","Welsh Powell",valoresWP);
+		generarResultado("test/Estadisticas/SecAl_N600_PAdy60.txt");
+		generarResultado("test/Estadisticas/Matula_N600_PAdy60.txt");
+		generarResultado("test/Estadisticas/WP_N600_PAdy60.txt");
 	}
 	
 	//@Test
@@ -114,7 +119,7 @@ public class Corridas {
 			
 			gn.secuencialAleatorio();
 			//gn.exportarResultado("Resultado1.out");
-			this.estadisticasSA[i] = gn.getCantColores();		
+			this.estadisticas[i] = gn.getCantColores();		
 			//gn.mezclar();
 			//gn.matula();
 			//gn.exportarResultado("Resultado2.out");
@@ -125,11 +130,11 @@ public class Corridas {
 			//this.estadisticasWP[i] = gn.getCantColores();
 		}
 		
-		int[] valoresSA = calcularMenores(estadisticasSA);
+		int[] valoresSA = calcularMenores(estadisticas);
 		//int[] valoresMAT = calcularMenores(estadisticasMAT);
 		//int[] valoresWP = calcularMenores(estadisticasWP);
 		
-		generarResultado("test/Estadisticas/SecAl_N600_PAdy90.txt","Secuencial Aleatorio",valoresSA);
+		generarResultado("test/Estadisticas/SecAl_N600_PAdy90.txt");
 		//generarResultado("test/Estadisticas/Matula_N600_PAdy90.txt","Matula",valoresMAT);
 		//generarResultado("test/Estadisticas/WP_N600_PAdy90.txt","Welsh Powell",valoresWP);
 		
@@ -157,12 +162,13 @@ public class Corridas {
 	
 	
 	
-	public void generarResultado(String path, String algoritmo, int[] valores) throws FileNotFoundException{
+	public void generarResultado(String path) throws FileNotFoundException{	
 		PrintWriter salida = new PrintWriter (new File(path));
-		salida.println("Algoritmo: "+algoritmo);
-		salida.println("Menor cantidad de colores: "+valores[1]);
-		salida.println("Nro de corrida: "+valores[0]);
-
+		salida.println(this.CANTIDAD_NODOS+ " "+PORCENTAJE_ADYACENCIA);
+		
+		for(int i = 0 ; i < CANTIDAD_NODOS ; i++){
+			salida.println(this.estadisticas[i]);
+		}
 		salida.close();
 	}
 	

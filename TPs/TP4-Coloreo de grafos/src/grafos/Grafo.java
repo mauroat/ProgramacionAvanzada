@@ -75,12 +75,12 @@ public class Grafo {
 		for (int i = 0; i < this.nodos.length; i++) 
 			this.nodos[i] = new Nodo(i, 0, 0);
 	}
-	
+	/*
 	private int calcularCantidadTotalDeAristas(int cantidadNodos, double porcentajeAdy){
 		// Esto esta OK
 		return (int) ((porcentajeAdy/100) * ((cantidadNodos * (cantidadNodos-1))/2));
 	}
-	
+	*/
 	/**
 	 * Método 1 - Generador con N y probabilidad por arista
 	 * */
@@ -320,7 +320,7 @@ public class Grafo {
 		for (int i = 0; i < cantidadNodos; i++){
 			for (int j = i + 1; j < cantidadNodos; j++) {
 				if (vector.sonAdyacentes(i, j)) {
-					int ini = i+1, fin = j+1;
+					//int ini = i+1, fin = j+1;
 					//texto.concat(i+1 + " " + k + "\n");
 					salida.print(i + " " + j + "\n");
 				}
