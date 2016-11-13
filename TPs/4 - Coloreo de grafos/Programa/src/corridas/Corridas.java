@@ -7,13 +7,13 @@ import java.util.Arrays;
 import model.GrafoNDNP;
 
 public class Corridas {
-	final static String FILE_NAME = "GA_N600_ADY60";
+	final static String FILE_NAME = "GR_N1000_ADY75";
 	
 	final static String DIR_ENTRADA = "src/corridas/Entrada/";
 	final static String DIR_SALIDA = "src/corridas/Salida/";
 	final static String DIR_COLOR = "src/corridas/Coloreo/";
 	
-	final static int CANTIDAD_CORRIDAS = 10000; 
+	final static int CANTIDAD_CORRIDAS = 1000; 
 			
 	public static void main(String[] args) {
 		GrafoNDNP grafo = new GrafoNDNP(DIR_ENTRADA + FILE_NAME + ".in");
