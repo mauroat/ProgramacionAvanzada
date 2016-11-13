@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="OIA-ACorrer/src"/>
+	<classpathentry kind="src" path="OIA-ACorrer/tests"/>
+	<classpathentry kind="src" path="OIA-ContandoCuadras/src"/>
+	<classpathentry kind="src" path="OIA-ContandoCuadras/tests"/>
+	<classpathentry kind="src" path="OIA-ContandoSubmatrices/src"/>
+	<classpathentry kind="src" path="OIA-ContandoSubmatrices/tests"/>
+	<classpathentry kind="src" path="OIA-DepositosSubterraneos/src"/>
+	<classpathentry kind="src" path="OIA-DepositosSubterraneos/tests"/>
+	<classpathentry kind="src" path="OIA-LuchadoresJaponeses/src"/>
+	<classpathentry kind="src" path="OIA-Palindromo/src"/>
+	<classpathentry kind="src" path="OIA-Palindromo/tests"/>
+	<classpathentry kind="src" path="OIA-ReconstruyendoLaPelicula/src"/>
+	<classpathentry kind="src" path="OIA-ReconstruyendoLaPelicula/tests"/>
+	<classpathentry kind="src" path="OIA-SecuenciaNumerica/src"/>
+	<classpathentry kind="src" path="OIA-SecuenciaNumerica/tests"/>
+	<classpathentry kind="src" path="OIA-SecuenciasMaximas/src"/>
+	<classpathentry kind="src" path="OIA-SecuenciasMaximas/tests"/>
+	<classpathentry kind="src" path="OIA-TransmitiendoUnMensaje/src"/>
+	<classpathentry kind="src" path="OIA-TransmitiendoUnMensaje/tests"/>
+	<classpathentry kind="src" path="OIA-UsandoLaRedSubterranea/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="OIA-ACorrer/bin"/>
+</classpath>
