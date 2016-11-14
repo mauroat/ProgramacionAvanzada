@@ -19,21 +19,21 @@ public class ProbadorTest {
 		Probador probador;
 		
 		probador = new Probador(entrada,salidaSA);
-		if(probador.isCorrecto()){
+		if(probador.esCorrecto()){
 			System.out.println("Secuencial Aleatorio --> TODO OK");
 		}else{
 			System.err.println("Secuencial Aleatorio --> ERROR");
 		}
 		
 		probador = new Probador(entrada,salidaMatula);
-		if(probador.isCorrecto()){
+		if(probador.esCorrecto()){
 			System.out.println("Matula --> TODO OK");
 		}else{
 			System.err.println("Matula --> ERROR");
 		}
 		
 		probador = new Probador(entrada,salidaWP);
-		if(probador.isCorrecto()){
+		if(probador.esCorrecto()){
 			System.out.println("Secuencial WelshPowell --> TODO OK");
 		}else{
 			System.err.println("Secuencial WelshPowell --> ERROR");

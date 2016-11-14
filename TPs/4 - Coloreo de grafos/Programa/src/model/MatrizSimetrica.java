@@ -37,7 +37,7 @@ public class MatrizSimetrica {
 				nodoOrigen, 2) + 3 * nodoOrigen + 2) / 2);
 	}
 
-	public boolean isAdyacentes(int nodoOrigen, int nodoDestino) {
+	public boolean sonAdyacentes(int nodoOrigen, int nodoDestino) {
 		return this.vector[this.getPosicionVector(nodoOrigen, nodoDestino)];
 	}
 

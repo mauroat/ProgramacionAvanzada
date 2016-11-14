@@ -22,13 +22,13 @@ public class Generador extends GrafoNDNP {
 	public void grafoDadoNYProbAristas(int cantNodos, double probabilidadAristas) {
 		this.cantidadNodos = cantNodos;
 		this.nodos = new Nodo[cantNodos];
-		initNodos();
+		inicializarNodos();
 		this.matrizAdyacencia = new MatrizSimetrica(this.cantidadNodos);
 		this.cantidadAristas = 0;
 
 		for (int i = 0; i < cantNodos; i++) {
 			for (int j = i + 1; j < cantNodos; j++) {
-				if (!isAdyacentes(i, j)) {
+				if (!sonAdyacentes(i, j)) {
 					if (Math.random() < probabilidadAristas) {
 						nodos[i].addGrado();
 						nodos[j].addGrado();
@@ -51,7 +51,7 @@ public class Generador extends GrafoNDNP {
 		Random rand = new Random();
 		this.cantidadNodos = cantNodos;
 		this.nodos = new Nodo[cantNodos];
-		initNodos();
+		inicializarNodos();
 		this.porcentajeAdyacencia = porcentajeAdy;
 		this.matrizAdyacencia = new MatrizSimetrica(this.cantidadNodos);
 		this.cantidadAristas = (int) (Math
@@ -62,7 +62,7 @@ public class Generador extends GrafoNDNP {
 		while (aristasAplicadas != this.cantidadAristas) {
 			for (int i = 0; i < cantNodos; i++) {
 				for (int j = i + 1; j < cantNodos; j++) {
-					if (!isAdyacentes(i, j)) {
+					if (!sonAdyacentes(i, j)) {
 						if (rand.nextInt(2) == 1) {
 							nodos[i].addGrado();
 							nodos[j].addGrado();
@@ -88,7 +88,7 @@ public class Generador extends GrafoNDNP {
 	public void grafoRegularDadoNYGrado(int cantNodos, int gradoRegular) {
 		this.cantidadNodos = cantNodos;
 		this.nodos = new Nodo[cantNodos];
-		initNodos();
+		inicializarNodos();
 		this.matrizAdyacencia = new MatrizSimetrica(cantNodos);
 		this.gradoMaximo = gradoRegular;
 		this.gradoMinimo = gradoRegular;
@@ -110,7 +110,7 @@ public class Generador extends GrafoNDNP {
 			for (int i = 0; i < this.cantidadNodos; i++) {
 				for (int j = i; j < this.cantidadNodos; j++) {
 					if (i != j) {
-						if (!isAdyacentes(nodos[i].getIndice(), nodos[j].getIndice())) {
+						if (!sonAdyacentes(nodos[i].getIndice(), nodos[j].getIndice())) {
 							if (nodos[i].getGrado() == gradoRegular || nodos[j].getGrado() == gradoRegular) {
 								break;
 							}
@@ -138,7 +138,7 @@ public class Generador extends GrafoNDNP {
 			
 			this.cantidadNodos = cantNodos;
 			this.nodos = new Nodo[cantNodos];
-			initNodos();
+			inicializarNodos();
 			this.matrizAdyacencia = new MatrizSimetrica(cantNodos);
 			this.cantidadAristas = 0;
 			boolean nodosRestantes = false;
@@ -153,7 +153,7 @@ public class Generador extends GrafoNDNP {
 				for (int j = 0; j < nodos.length; j++) {
 					if (i != j) {
 						if (!(j <= fin && j >= ini)) {
-							if (!isAdyacentes(nodos[i].getIndice(), nodos[j].getIndice())) {
+							if (!sonAdyacentes(nodos[i].getIndice(), nodos[j].getIndice())) {
 								this.matrizAdyacencia.setNodo(nodos[i].getIndice(), nodos[j].getIndice());
 								this.cantidadAristas++;
 								nodos[i].addGrado();
@@ -195,7 +195,7 @@ public class Generador extends GrafoNDNP {
 					+ gradoMinimo);
 			for (int i = 0; i < cantidadNodos; i++)
 				for (int j = i + 1; j < cantidadNodos; j++) {
-					if (matrizAdyacencia.isAdyacentes(i, j)) {
+					if (matrizAdyacencia.sonAdyacentes(i, j)) {
 						sb.append((i+1) + " " + (j+1) + "\n");
 					}
 				}

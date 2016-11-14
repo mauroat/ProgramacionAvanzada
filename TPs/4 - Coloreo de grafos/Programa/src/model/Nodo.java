@@ -52,7 +52,7 @@ public class Nodo implements Comparable<Nodo>{
 		}
 	}
 
-	public void clean() {
+	public void setearColor() {
 		this.color = 0;
 	}
 

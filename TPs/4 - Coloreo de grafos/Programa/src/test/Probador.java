@@ -64,7 +64,7 @@ public class Probador {
 		}
 	}
 
-	public boolean isCorrecto() {
+	public boolean esCorrecto() {
 		// Verificar que los datos de entrada y de salida son los mismos
 
 		if (!cantidadNodosSalida.equals(grafo.getCantidadNodos())) {

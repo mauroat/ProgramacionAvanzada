@@ -124,23 +124,23 @@ public class GrafoNDNP {
 		}
 	}
 	
-	public void initNodos(){
+	public void inicializarNodos(){
 		for (int i = 0; i < nodos.length; i++) {
 			nodos[i] = new Nodo(i, 0, 0);
 		}
 	}
 
-	public void cleanNodos() {
+	public void borrarListaNodos() {
 		for (int i = 0; i < nodos.length; i++) {
-			nodos[i].clean();
+			nodos[i].setearColor();
 		}
 	}
 	
-	public boolean isAdyacentes(int nodoOrigen, int nodoDestino) {
-		return this.getMatrizAdyacencia().isAdyacentes(nodoOrigen, nodoDestino);
+	public boolean sonAdyacentes(int nodoOrigen, int nodoDestino) {
+		return this.getMatrizAdyacencia().sonAdyacentes(nodoOrigen, nodoDestino);
 	}
 
-	public void shuffle() {
+	public void mezclar() {
 		int inicio = 0;
 		int fin = 0;
 		int gradoActual = 0;
@@ -151,13 +151,13 @@ public class GrafoNDNP {
 				fin++;
 			}
 			if (inicio != (fin - 1)) {
-				this.shuffle(inicio, fin - 1);
+				this.mezclar(inicio, fin - 1);
 			}
 			inicio = fin;
 		}
 	}
 
-	public void shuffle(int inicio, int fin) {
+	public void mezclar(int inicio, int fin) {
 		int cantidad = (fin - inicio + 1);
 		int random;
 		Nodo aux;
@@ -176,7 +176,7 @@ public class GrafoNDNP {
 		}
 
 		for (int i = 0; i < cantidadNodos; i++) {
-			if (i != indice && isAdyacentes(nodos[i].getIndice(), nodos[indice].getIndice())) {
+			if (i != indice && sonAdyacentes(nodos[i].getIndice(), nodos[indice].getIndice())) {
 				if (nodos[i].getColor() == color) {
 					return false;
 				}
@@ -189,7 +189,7 @@ public class GrafoNDNP {
 	public void colorear() {
 		int color = 0;
 		int nodosColoreados = 0;
-		cleanNodos();
+		borrarListaNodos();
 
 		while (nodosColoreados < cantidadNodos) {
 			color++;
@@ -205,23 +205,23 @@ public class GrafoNDNP {
 	}
 	
 	public void coloreoSecuencialAleatorio(){
-		shuffle(0, cantidadNodos - 1);
+		mezclar(0, cantidadNodos - 1);
 		colorear();
 	}
 	
 	public void coloreoMatula(){
 		Arrays.sort(this.nodos);
-		shuffle();
+		mezclar();
 		colorear();
 	}
 	
 	public void coloreoWelshPowell(){
 		Arrays.sort(this.nodos, Collections.reverseOrder());
-		shuffle();
+		mezclar();
 		colorear();
 	}
 	
-	protected boolean isRegular(int grado) {
+	protected boolean esRegular(int grado) {
 		for (int i = 0; i < cantidadNodos; i++) {
 	        if(nodos[i].getGrado() != grado) {
 	            return false;
