@@ -9,28 +9,36 @@ import java.util.Scanner;
 
 public class Grafo {
 
+	private final static int INF = 999999;
+	private final static int NONE = -2;
+	
 	private int cantidadNodos;
 	private int cantidadAristas;
 	private int cantidadDragones;
 	private int nodoPrincipe, nodoPrincesa;
-	private int[] nodosDragones;
-	private List<Arista> aristas;
+	private int[] nodosDragones;	
 	private int[][] matriz;
-	private int[] camino;	
+	
+	private List<Arista> aristas;
 	private Nodo[] listaNodos;
+	
+	// para dijsktra
+	private int[] distancias;
+	private int[] camino;
+	private boolean[] vistos;
+	private int[][] matrizCostos;
+	Nodo origen;
 	
 	public Grafo(String path) throws FileNotFoundException{
 		Scanner sc = new Scanner (new File(path));
 		
 		this.cantidadNodos = sc.nextInt();
-	//	this.matriz = new int[this.cantidadNodos][this.cantidadNodos];
-	//	inicializarMatriz();
-
 		this.listaNodos = new Nodo[this.cantidadNodos];
 		inicializarNodos();
 		
 		this.cantidadAristas = sc.nextInt();
 		this.aristas = new LinkedList<Arista>();
+		
 		this.cantidadDragones = sc.nextInt();
 		this.nodosDragones = new int[this.cantidadDragones];
 		
@@ -67,28 +75,65 @@ public class Grafo {
 	private void inicializarMatriz() {
 		for (int i = 0; i < this.cantidadNodos;i++)
 			for (int j = 0; j < this.cantidadNodos;j++)
-				matriz[i][j] = 999999;
+				matriz[i][j] = INF;
 	}
 	
 	 
 	
-	private void dijsktra(Nodo origen){
-		int[] distancias = new int[this.cantidadNodos];
-		Arrays.fill(distancias, 999999);
+	public void dijsktra(Nodo nodoOrigen){
 		
-		boolean[] vistos = new boolean[this.cantidadNodos];
+		/*
+		 * Inicializo todo
+		 * */
+		this.distancias = new int[cantidadNodos];
+		this.camino = new int[cantidadNodos];
+		this.vistos = new boolean[cantidadNodos];
+		this.matrizCostos = new int[cantidadNodos][cantidadNodos];
+		
+		Arrays.fill(distancias, INF);
+		Arrays.fill(camino, NONE);
 		Arrays.fill(vistos, false);
 		
-		int[] camino = new int[this.cantidadNodos];
-		Arrays.fill(camino, -2);
+		for (int i = 0; i < matrizCostos.length; i++) 
+			for (int j = 0; j < matrizCostos.length; j++) 
+				matrizCostos[i][j] = INF;
+			
+		for (Arista arista : aristas) {
+			int origen = arista.getOrigen().getPosicion();
+			int destino = arista.getDestino().getPosicion();
+			int costo = arista.getPeso();
+			matrizCostos[origen][destino] = costo;
+		}
 		
-		int[][] matrizCostos = new int[cantidadNodos][cantidadNodos];
-		inicializarMatriz();
+		/*
+		 * Comienzo a resolver
+		 * */
 		
+		Nodo origen = null;
+		boolean first = true;
+		int nodosVistos = 0;
+		while (nodosVistos < listaNodos.length) {
+			if (first) {
+				origen = listaNodos[0];
+				distancias[0] = 0;
+				camino[0] = 0;
+				first = false;
+			}else{
+				origen = nextMenor(origen);
+			}
+			
+			vistos[origen.getPosicion()] = true;
+			nodosVistos++;
+			caminoMasCorto(origen);
+		}
 		
-		for(int i = 0; i < this.cantidadNodos ; i++){
-			if(origen.getPosicion() != i+1){
-				if (isAdyacentes(origen,listaNodos[i+1])) {
+	}
+	
+	// actualizo las distancias relativas al nodo origen
+	private void caminoMasCorto(Nodo origen){
+		for (int i = 0; i < listaNodos.length; i++) {
+			if (origen.getPosicion() != i) {
+				if (isAdyacentes(origen,listaNodos[i])) {
 					if (!vistos[listaNodos[i].getPosicion()]) {
 						int acum = distancias[origen.getPosicion()] + matrizCostos[origen.getPosicion()][listaNodos[i].getPosicion()];
 						if(distancias[listaNodos[i].getPosicion()] > acum){
@@ -96,16 +141,27 @@ public class Grafo {
 							camino[listaNodos[i].getPosicion()] = origen.getPosicion();
 						}
 					}
+				}				
+			}
+		}
+	}
+	
+	private Nodo nextMenor(Nodo actual) {
+		Nodo next = null;
+		int costoMenor = INF+1;
+		for (int i = 0; i < listaNodos.length; i++) {
+			if (actual.getPosicion() != i) {
+				if (!vistos[i] && costoMenor >= distancias[i]) {
+					next = listaNodos[i];
+					costoMenor = distancias[i];
 				}
 			}
 		}
-		
-		
-		
+		return next;
 	}
-		
+	
 	protected boolean isAdyacentes(Nodo origen, Nodo destino){
-		return matrizCostos[origen.getPosicion()][destino.getPosicion()] != 999999;
+		return matrizCostos[origen.getPosicion()][destino.getPosicion()] != INF;
 	}
 		
 		
