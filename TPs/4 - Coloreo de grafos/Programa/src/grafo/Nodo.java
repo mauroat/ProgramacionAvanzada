@@ -1,4 +1,4 @@
-package model;
+package grafo;
 
 public class Nodo implements Comparable<Nodo>{
 	private int indice;
@@ -21,6 +21,10 @@ public class Nodo implements Comparable<Nodo>{
 		this(otro.getIndice(), otro.getColor(), otro.getGrado());
 	}
 
+	public void incrementarGrado(){
+		this.grado++;
+	}
+	
 	public int getIndice() {
 		return indice;
 	}
@@ -37,10 +41,19 @@ public class Nodo implements Comparable<Nodo>{
 		return grado;
 	}
 	
-	public void addGrado(){
-		this.grado++;
+
+
+	public void setearColor() {
+		this.color = 0;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "[" + indice + ", " + color + ", "+ grado + "]";
+	}
+	
+	/*
 	@Override
 	public int compareTo(Nodo otro) {
 		if (this.grado > otro.getGrado()) {
@@ -51,13 +64,15 @@ public class Nodo implements Comparable<Nodo>{
 			return 0;
 		}
 	}
-
-	public void setearColor() {
-		this.color = 0;
-	}
-
+	*/
 	@Override
-	public String toString() {
-		return "[" + indice + ", " + color + ", "+ grado + "]";
+	public int compareTo(Nodo otro) {
+		if (this.indice > otro.getIndice()) {
+			return 1;
+		}else if (this.indice < otro.getIndice()) {
+			return -1;
+		}else{
+			return 0;
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package model;
+package grafo;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -18,20 +18,22 @@ public class Generador extends GrafoNDNP {
 		}
 		return factorial;
 	}
-
-	public void grafoDadoNYProbAristas(int cantNodos, double probabilidadAristas) {
-		this.cantidadNodos = cantNodos;
-		this.nodos = new Nodo[cantNodos];
+	/*
+	 * 1- Generador de Grafos dado N y probabilidad de aristas
+	 * */
+	public void grafoDadoNYProbAristas(int n, double probabilidadAristas) {
+		this.cantidadNodos = n;
+		this.nodos = new Nodo[n];
 		inicializarNodos();
 		this.matrizAdyacencia = new MatrizSimetrica(this.cantidadNodos);
 		this.cantidadAristas = 0;
 
-		for (int i = 0; i < cantNodos; i++) {
-			for (int j = i + 1; j < cantNodos; j++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
 				if (!sonAdyacentes(i, j)) {
 					if (Math.random() < probabilidadAristas) {
-						nodos[i].addGrado();
-						nodos[j].addGrado();
+						nodos[i].incrementarGrado();
+						nodos[j].incrementarGrado();
 						matrizAdyacencia.setNodo(i, j);
 						this.cantidadAristas++;
 					}
@@ -43,29 +45,35 @@ public class Generador extends GrafoNDNP {
 		this.gradoMaximo = nodos[this.cantidadNodos - 1].getGrado();
 		this.gradoMinimo = nodos[0].getGrado();
 
-		double aristasMaximas = factorial(cantNodos - 1);
+		double aristasMaximas = factorial(n - 1);
 		this.porcentajeAdyacencia = (int) (Math.rint((this.cantidadAristas/ aristasMaximas) * 100.0));
 	}
 
-	public void grafoDadoNYPorcentajeAdy(int cantNodos, int porcentajeAdy) {
+	
+	/*
+	 * 2 - Generador de grafos dado N y porcentaje de adyacencia
+	 * 
+	 * */
+	public void grafoDadoNYPorcentajeAdy(int n, int porcentajeAdy) {
 		Random rand = new Random();
-		this.cantidadNodos = cantNodos;
-		this.nodos = new Nodo[cantNodos];
+		this.cantidadNodos = n;
+		this.nodos = new Nodo[n];
+		//OK
 		inicializarNodos();
 		this.porcentajeAdyacencia = porcentajeAdy;
 		this.matrizAdyacencia = new MatrizSimetrica(this.cantidadNodos);
 		this.cantidadAristas = (int) (Math
-				.rint((cantNodos * cantNodos - cantNodos) * 0.5
+				.rint((n * n - n) * 0.5
 						* (porcentajeAdy / 100.0)));
 
 		int aristasAplicadas = 0;
 		while (aristasAplicadas != this.cantidadAristas) {
-			for (int i = 0; i < cantNodos; i++) {
-				for (int j = i + 1; j < cantNodos; j++) {
+			for (int i = 0; i < n; i++) {
+				for (int j = i + 1; j < n; j++) {
 					if (!sonAdyacentes(i, j)) {
 						if (rand.nextInt(2) == 1) {
-							nodos[i].addGrado();
-							nodos[j].addGrado();
+							nodos[i].incrementarGrado();
+							nodos[j].incrementarGrado();
 							matrizAdyacencia.setNodo(i, j);
 							aristasAplicadas++;
 						}
@@ -85,24 +93,25 @@ public class Generador extends GrafoNDNP {
 		this.gradoMinimo = nodos[0].getGrado();
 	}
 
-	public void grafoRegularDadoNYGrado(int cantNodos, int gradoRegular) {
-		this.cantidadNodos = cantNodos;
-		this.nodos = new Nodo[cantNodos];
+	/*
+	 * 3- Generador de grafos regulaes dado N y grado
+	 * */
+	
+	public void grafoRegularDadoNYGrado(int n, int gradoRegular) {
+		this.cantidadNodos = n;
+		this.nodos = new Nodo[n];
 		inicializarNodos();
-		this.matrizAdyacencia = new MatrizSimetrica(cantNodos);
+		this.matrizAdyacencia = new MatrizSimetrica(n);
 		this.gradoMaximo = gradoRegular;
 		this.gradoMinimo = gradoRegular;
 		this.cantidadAristas = 0;
 
-		// Condiciones para que G(N, k) sea k-regular:
-        // 1. k + 1 <= N.
-        // 2. N * k par.
-		if (gradoRegular + 1 > cantNodos) {
-			System.err.println("No se puede generar un grafo " + gradoRegular + "-regular de " + cantNodos + " nodos.");
+		if (gradoRegular + 1 > n) {
+			System.err.println("No se puede generar un grafo " + gradoRegular + "-regular de " + n + " nodos.");
 			System.exit(-1);
 		}
-		if (cantNodos * gradoRegular % 2 != 0) {
-			System.err.println("No se puede generar un grafo " + gradoRegular + "-regular de " + cantNodos + " nodos.");
+		if (n * gradoRegular % 2 != 0) {
+			System.err.println("No se puede generar un grafo " + gradoRegular + "-regular de " + n + " nodos.");
 			System.exit(-1);
 		}
 		if (gradoRegular != 0) {
@@ -114,37 +123,42 @@ public class Generador extends GrafoNDNP {
 							if (nodos[i].getGrado() == gradoRegular || nodos[j].getGrado() == gradoRegular) {
 								break;
 							}
+							
+							
 							this.matrizAdyacencia.setNodo(nodos[i].getIndice(), nodos[j].getIndice());
 							this.cantidadAristas++;
-							nodos[i].addGrado();
-							nodos[j].addGrado();													
+							nodos[i].incrementarGrado();
+							nodos[j].incrementarGrado();													
 						}	
 					}
 				}
 			}
 		}		
 
-		double aristasMaximas = factorial(cantNodos - 1);
+		double aristasMaximas = factorial(n - 1);
 		this.porcentajeAdyacencia = (int) (Math.rint((this.cantidadAristas/ aristasMaximas) * 100.0));
 	}
 
+	/*
+	 * 4 - Generador de grafos regulares dado N y porcentaje de adyacencia
+	 * */
 	public void grafoRegularDadoNYPorcentajeAdy(int cantNodos, int porcentajeAdy) {
 		int aux = (int) ((Math.rint((cantNodos * cantNodos - cantNodos) * 0.5* (porcentajeAdy / 100.0))) / cantNodos);
 		grafoRegularDadoNYGrado(cantNodos,aux);
 	}
 
-	public void grafoNPartito(int cantNodos, int partes) {
+	public void grafoNPartito(int n, int partes) {
 		if (partes >= 1) {
 			
-			this.cantidadNodos = cantNodos;
-			this.nodos = new Nodo[cantNodos];
+			this.cantidadNodos = n;
+			this.nodos = new Nodo[n];
 			inicializarNodos();
-			this.matrizAdyacencia = new MatrizSimetrica(cantNodos);
+			this.matrizAdyacencia = new MatrizSimetrica(n);
 			this.cantidadAristas = 0;
 			boolean nodosRestantes = false;
 			
-			int nodosPorParte = cantNodos/partes;
-			nodosRestantes = cantNodos%partes != 0;
+			int nodosPorParte = n/partes;
+			nodosRestantes = n%partes != 0;
 			
 			int ini = 0;
 			int fin = nodosPorParte-1;
@@ -156,8 +170,8 @@ public class Generador extends GrafoNDNP {
 							if (!sonAdyacentes(nodos[i].getIndice(), nodos[j].getIndice())) {
 								this.matrizAdyacencia.setNodo(nodos[i].getIndice(), nodos[j].getIndice());
 								this.cantidadAristas++;
-								nodos[i].addGrado();
-								nodos[j].addGrado();													
+								nodos[i].incrementarGrado();
+								nodos[j].incrementarGrado();													
 							}
 						}
 					}
@@ -172,11 +186,12 @@ public class Generador extends GrafoNDNP {
 			}
 			
 			
-			double aristasMaximas = factorial(cantNodos - 1);
-			this.porcentajeAdyacencia = (int) (Math.rint((this.cantidadAristas/ aristasMaximas) * 100.0));
+			//double aristasMaximas = factorial(n - 1);
+			//this.porcentajeAdyacencia = (int) (Math.rint((this.cantidadAristas/ aristasMaximas) * 100.0));
 			Arrays.sort(nodos);
 			this.gradoMaximo = nodos[this.cantidadNodos - 1].getGrado();
 			this.gradoMinimo = nodos[0].getGrado();
+			this.porcentajeAdyacencia = (int)(((float)this.gradoMaximo /(this.cantidadNodos-1))*100);
 			
 		}else{
 			System.err.println("No se puede generar un grafo " + partes + "-partito.");

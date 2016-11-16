@@ -1,17 +1,19 @@
 package test;
 
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
 
-import model.GrafoNDNP;
+import grafo.GrafoNDNP;
 
 public class ColoreoTest {
 
-	final static String DIR_IN = "../Lote de pruebas/Entrada/";
+	final static String DIR_IN = "s";
 	final static String DIR_OUT = "../Lote de pruebas/Salida/";
 	final static String FILE_NAME = "GR_N1000_ADY75";
 
-	@Test
-	public void coloreandoTest() {
+	//@Test
+	public void coloreandoTest() throws FileNotFoundException {
 		
 		String pathDeEntrada = DIR_IN + FILE_NAME + ".in";
 		String pathSalidaSA = DIR_OUT + "SA/" + FILE_NAME + ".out";
@@ -20,13 +22,22 @@ public class ColoreoTest {
 
 		GrafoNDNP grafo = new GrafoNDNP(pathDeEntrada);
 
-		grafo.coloreoSecuencialAleatorio();
-		grafo.exportarResultado(pathSalidaSA);
+		grafo.secuencialAleatorio();
+		grafo.exportar(pathSalidaSA);
 
-		grafo.coloreoMatula();
-		grafo.exportarResultado(pathSalidaMatula);
+		grafo.matula();
+		grafo.exportar(pathSalidaMatula);
 
-		grafo.coloreoWelshPowell();
-		grafo.exportarResultado(pathSalidaWP);	
+		grafo.welshPowell();
+		grafo.exportar(pathSalidaWP);	
 	}
+	
+	
+	@Test
+	public void colorearNPartito() throws FileNotFoundException{
+		GrafoNDNP g = new GrafoNDNP("grafo.in");
+		g.welshPowell();
+		g.exportar("grafo.GRAF");
+	}
+	
 }

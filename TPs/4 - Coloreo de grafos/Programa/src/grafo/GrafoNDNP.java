@@ -1,17 +1,19 @@
-package model;
+package grafo;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Scanner;
 
 public class GrafoNDNP {
 
 	protected Integer cantidadNodos;
 	protected Integer cantidadAristas;
-	protected Integer porcentajeAdyacencia;
+	protected double porcentajeAdyacencia;
 	protected MatrizSimetrica matrizAdyacencia;
 	protected Nodo[] nodos;
 	protected Integer gradoMinimo;
@@ -22,7 +24,7 @@ public class GrafoNDNP {
 	}
 
 	public GrafoNDNP(Integer cantidadNodos, Nodo[] nodos, Integer cantidadAristas,
-			Integer porcentajeAdyacencia, Integer gradoMinimo,
+			double porcentajeAdyacencia, Integer gradoMinimo,
 			Integer gradoMaximo, MatrizSimetrica matrizAdyacencia) {
 		this.cantidadNodos = cantidadNodos;
 		this.nodos = nodos;
@@ -41,8 +43,42 @@ public class GrafoNDNP {
 				.getMatrizAdyacencia());
 	}
 
-	public GrafoNDNP(String ruta) {
-		File archivo = null;
+	public GrafoNDNP(String ruta) throws FileNotFoundException {
+		Scanner sc = new Scanner ( new File ( ruta));
+		this.cantidadNodos = sc.nextInt();
+		nodos = new Nodo[cantidadNodos];
+		
+		
+		this.cantidadAristas = sc.nextInt();
+		this.porcentajeAdyacencia = sc.nextDouble();
+		this.gradoMaximo = sc.nextInt();
+		this.gradoMinimo = sc.nextInt();
+		matrizAdyacencia = new MatrizSimetrica(cantidadNodos);
+		cantidadColores = cantidadNodos;
+		
+		for(int i = 0;i< this.cantidadNodos;i++){
+			int nodoOrigen = sc.nextInt();
+			int nodoDestino = sc.nextInt();
+			
+			if (nodos[nodoOrigen-1] == null) {
+				nodos[nodoOrigen-1] = new Nodo(nodoOrigen);
+			} else {
+				nodos[nodoOrigen-1].incrementarGrado();
+			}
+
+			if (nodos[nodoDestino-1] == null) {
+				nodos[nodoDestino-1] = new Nodo(nodoDestino);
+			} else {
+				nodos[nodoDestino-1].incrementarGrado();
+			}
+			
+			matrizAdyacencia.setNodo(nodoOrigen-1, nodoDestino-1);
+		}
+		
+		sc.close();
+		
+		
+		/*	File archivo = null;
 		FileReader fr = null;
 		BufferedReader br = null;
 
@@ -59,7 +95,7 @@ public class GrafoNDNP {
 			cantidadNodos = Integer.parseInt(data[0]);
 			nodos = new Nodo[cantidadNodos];
 			cantidadAristas = Integer.parseInt(data[1]);
-			porcentajeAdyacencia = Integer.parseInt(data[2]);
+			porcentajeAdyacencia = Double.parseDouble(data[2]);
 			gradoMaximo = Integer.parseInt(data[3]);
 			gradoMinimo = Integer.parseInt(data[4]);
 			matrizAdyacencia = new MatrizSimetrica(cantidadNodos);
@@ -73,13 +109,13 @@ public class GrafoNDNP {
 				if (nodos[nodoOrigen] == null) {
 					nodos[nodoOrigen] = new Nodo(nodoOrigen);
 				} else {
-					nodos[nodoOrigen].addGrado();
+					nodos[nodoOrigen].incrementarGrado();
 				}
 
 				if (nodos[nodoDestino] == null) {
 					nodos[nodoDestino] = new Nodo(nodoDestino);
 				} else {
-					nodos[nodoDestino].addGrado();
+					nodos[nodoDestino].incrementarGrado();
 				}
 
 				matrizAdyacencia.setNodo(nodoOrigen, nodoDestino);
@@ -96,9 +132,10 @@ public class GrafoNDNP {
 				e2.printStackTrace();
 			}
 		}
+		*/
 	}
 
-	public void exportarResultado(String ruta) {
+	public void exportar(String ruta) {
 		File archivo = null;
 		PrintWriter pw = null;
 		StringBuffer sb = null;
@@ -132,6 +169,7 @@ public class GrafoNDNP {
 
 	public void borrarListaNodos() {
 		for (int i = 0; i < nodos.length; i++) {
+			
 			nodos[i].setearColor();
 		}
 	}
@@ -204,18 +242,22 @@ public class GrafoNDNP {
 		cantidadColores = color;
 	}
 	
-	public void coloreoSecuencialAleatorio(){
+	public void secuencialAleatorio(){
 		mezclar(0, cantidadNodos - 1);
 		colorear();
 	}
-	
-	public void coloreoMatula(){
+	/*
+	 * igual a secuencial pero ordenando de menor a mayor grado
+	 * */
+	public void matula(){
 		Arrays.sort(this.nodos);
 		mezclar();
 		colorear();
 	}
-	
-	public void coloreoWelshPowell(){
+	/*
+	 * idem matula pero ordenando de mayor a menor
+	 * */
+	public void welshPowell(){
 		Arrays.sort(this.nodos, Collections.reverseOrder());
 		mezclar();
 		colorear();
@@ -230,6 +272,10 @@ public class GrafoNDNP {
 		return true;
 	}
 
+	/*
+	 * Getters y Setters
+	 * */
+	
 	public Integer getCantidadNodos() {
 		return cantidadNodos;
 	}
@@ -238,7 +284,7 @@ public class GrafoNDNP {
 		return cantidadAristas;
 	}
 
-	public Integer getPorcentajeAdyacencia() {
+	public double getPorcentajeAdyacencia() {
 		return porcentajeAdyacencia;
 	}
 

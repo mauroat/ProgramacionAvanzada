@@ -1,5 +1,7 @@
 package test;
 
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
 
 public class ProbadorTest {
@@ -10,33 +12,33 @@ public class ProbadorTest {
 	
 	
 	@Test
-	public void probadorTest(){
-		String entrada = DIR_ENTRADA + FILE_NAME + ".in";
-		String salidaSA = DIR_SALIDA + "SA/" + FILE_NAME + ".out";
-		String salidaMatula = DIR_SALIDA + "Matula/" + FILE_NAME + ".out";
-		String salidaWP = DIR_SALIDA + "WP/" + FILE_NAME + ".out";
-
-		Probador probador;
+	public void probadorTest() throws FileNotFoundException{
+		String entrada = "grafo.in";
+		String salidaWP = "grafo.graf";
 		
-		probador = new Probador(entrada,salidaSA);
+
+		/*	
+		Probador probador = new Probador(entrada, salidaSA);
 		if(probador.esCorrecto()){
 			System.out.println("Secuencial Aleatorio --> TODO OK");
 		}else{
 			System.err.println("Secuencial Aleatorio --> ERROR");
 		}
-		
+		/*
 		probador = new Probador(entrada,salidaMatula);
 		if(probador.esCorrecto()){
 			System.out.println("Matula --> TODO OK");
 		}else{
 			System.err.println("Matula --> ERROR");
 		}
+		*/
 		
-		probador = new Probador(entrada,salidaWP);
+		Probador probador = new Probador(entrada,salidaWP);
 		if(probador.esCorrecto()){
 			System.out.println("Secuencial WelshPowell --> TODO OK");
 		}else{
 			System.err.println("Secuencial WelshPowell --> ERROR");
 		}
 	}
+
 }

@@ -27,8 +27,16 @@ public class Grafo {
 	private int[] camino;
 	private boolean[] vistos;
 	private int[][] matrizCostos;
-	Nodo origen;
+	private Nodo nodoOrigen;
 	
+	public Nodo getNodoOrigen() {
+		return nodoOrigen;
+	}
+
+	public void setNodoOrigen(Nodo nodoOrigen) {
+		this.nodoOrigen = nodoOrigen;
+	}
+
 	public Grafo(String path) throws FileNotFoundException{
 		Scanner sc = new Scanner (new File(path));
 		
@@ -80,7 +88,7 @@ public class Grafo {
 	
 	 
 	
-	public void dijsktra(Nodo nodoOrigen){
+	public void dijsktra(){
 		
 		/*
 		 * Inicializo todo
@@ -98,12 +106,15 @@ public class Grafo {
 			for (int j = 0; j < matrizCostos.length; j++) 
 				matrizCostos[i][j] = INF;
 			
+		
 		for (Arista arista : aristas) {
 			int origen = arista.getOrigen().getPosicion();
 			int destino = arista.getDestino().getPosicion();
 			int costo = arista.getPeso();
-			matrizCostos[origen][destino] = costo;
+			matrizCostos[origen-1][destino-1] = costo;
 		}
+		
+		this.nodoOrigen = nodoOrigen;
 		
 		/*
 		 * Comienzo a resolver
@@ -122,7 +133,7 @@ public class Grafo {
 				origen = nextMenor(origen);
 			}
 			
-			vistos[origen.getPosicion()] = true;
+			vistos[origen.getPosicion()-1] = true;
 			nodosVistos++;
 			caminoMasCorto(origen);
 		}
@@ -161,7 +172,7 @@ public class Grafo {
 	}
 	
 	protected boolean isAdyacentes(Nodo origen, Nodo destino){
-		return matrizCostos[origen.getPosicion()][destino.getPosicion()] != INF;
+		return matrizCostos[origen.getPosicion()-1][destino.getPosicion()-1] != INF;
 	}
 		
 		

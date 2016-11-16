@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
-import model.GrafoNDNP;
+import grafo.GrafoNDNP;
 
 public class Corridas {
 	final static String FILE_NAME = "GR_N1000_ADY75";
@@ -34,13 +34,13 @@ public class Corridas {
 			System.out.println(i);
 			switch (directorio) {
 				case "SA":
-					grafo.coloreoSecuencialAleatorio();
+					grafo.secuencialAleatorio();
 					break;
 				case "Matula":
-					grafo.coloreoMatula();
+					grafo.matula();
 					break;
 				case "WP":
-					grafo.coloreoWelshPowell();
+					grafo.welshPowell();
 					break;
 				default:
 					break;
@@ -49,24 +49,24 @@ public class Corridas {
 			if (first) {
 				corridaMenorColor = i;
 				menorColor = grafo.getCantidadColores();
-				grafo.exportarResultado(pathSalida);
+				grafo.exportar(pathSalida);
 				first = false;
 			}else{
 				if (menorColor > grafo.getCantidadColores()) {
 					corridaMenorColor = i;
 					menorColor = grafo.getCantidadColores();
-					grafo.exportarResultado(pathSalida);
+					grafo.exportar(pathSalida);
 				}
 			}
 			frecuenciaDeColor[grafo.getCantidadColores()]++;
 		}
-		exportarPlotExcel(directorio, frecuenciaDeColor, corridaMenorColor);
+		exportarGrafo(directorio, frecuenciaDeColor, corridaMenorColor);
 	}
 	
-	public static void exportarPlotExcel(String directorio, int[] frecuenciaDeColor, int corridaMenorColor){
+	public static void exportarGrafo(String directorio, int[] frecuenciaDeColor, int corridaMenorColor){
 		FileWriter fw = null;
 		PrintWriter pw = null;
-		String ruta = DIR_COLOR + directorio + "/" + FILE_NAME + ".plot";
+		String ruta = DIR_COLOR + directorio + "/" + FILE_NAME + ".graf";
 		System.out.println(ruta);
 		try {
 			fw = new FileWriter(ruta);

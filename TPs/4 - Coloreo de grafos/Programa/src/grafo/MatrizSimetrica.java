@@ -1,4 +1,4 @@
-package model;
+package grafo;
 
 public class MatrizSimetrica {
 	private int cantidadNodos;
@@ -12,7 +12,15 @@ public class MatrizSimetrica {
 			vector[i] = false;
 		}
 	}
-
+	
+	public boolean sonAdyacentes(int nodoOrigen, int nodoDestino) {
+		return this.vector[this.getPosicionVector(nodoOrigen, nodoDestino)];
+	}
+	
+	/*
+	 * Getters y Setters
+	 * */
+	
 	public void setNodo(int nodoOrigen, int nodoDestino) {
 		if (nodoOrigen != nodoDestino) {
 			int pos = getPosicionVector(nodoOrigen, nodoDestino);
@@ -37,8 +45,6 @@ public class MatrizSimetrica {
 				nodoOrigen, 2) + 3 * nodoOrigen + 2) / 2);
 	}
 
-	public boolean sonAdyacentes(int nodoOrigen, int nodoDestino) {
-		return this.vector[this.getPosicionVector(nodoOrigen, nodoDestino)];
-	}
+	
 
 }
