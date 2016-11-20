@@ -15,10 +15,10 @@ import javax.swing.border.EmptyBorder;
 
 import com.google.gson.Gson;
 
-import cliente.Paquete;
-import cliente.PaquetePersonaje;
+import cliente.*;
 import cliente.Usuario;
-import dominio.Personaje;
+import dominio.*;
+import razas.*;
 
 //import connection.Mensaje;
 //import entities.MensajePersonaje;
@@ -58,7 +58,7 @@ public class CrearPersonaje extends JFrame {
 	}
 */
 	// Crear personaje desde 0
-	public CrearPersonaje(final Paquete p, final Semaphore semaforo) {
+	public CrearPersonaje(final Personaje personaje, final Semaphore semaforo, final Usuario usuario) {
 		setTitle("Seleccion de Personaje");
 		setResizable(false);
 //		personaje = new MensajePersonaje();
@@ -117,10 +117,22 @@ public class CrearPersonaje extends JFrame {
 		JButton button = new JButton("Guardar");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				usuario.setAccion("inicioSesion");
-				usuario.setNombre_usuario(txtUsuario.getText());
-				usuario.setPassword_usuario(tpContrasena.getText());
-				usuario.setOpcion(1);
+				/*
+				 * CREO UN PERSONAJE CON LA RAZA QUE CORRESPONDA
+				 * */
+				if(comboRaza.getSelectedItem().toString().contentEquals("HUMANO")){
+					personaje = new Humano(usuario.getNombre_usuario());
+				} else if (comboRaza.getSelectedItem().toString().contentEquals("ORCO")){
+					personaje = new Orco(usuario.getNombre_usuario());	
+				} else if (comboRaza.getSelectedItem().toString().contentEquals("ELFO")){
+					personaje = new Elfo(usuario.getNombre_usuario());	
+				}
+				
+				
+				p1.getCasta().setNombreCasta((String) comboBox2.getSelectedItem());
+				p1.setFuerza(Integer.parseInt(vecFuerza[comboBox2.getSelectedIndex()]));
+				p1.setDestreza(Integer.parseInt(vecDestreza[comboBox2.getSelectedIndex()]));
+				p1.setInteligencia(Integer.parseInt(vecInteligencia[comboBox2.getSelectedIndex()]));
 				semaforo.release();
 			
 				dispose();

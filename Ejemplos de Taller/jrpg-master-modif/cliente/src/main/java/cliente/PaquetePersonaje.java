@@ -15,6 +15,7 @@ public class PaquetePersonaje extends Paquete implements Serializable, Cloneable
 	private float posY;
 	private int direccion;
 	private int frame;
+	
 
 	public PaquetePersonaje() {
 
